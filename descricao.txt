@@ -1,0 +1,13 @@
+- Fazer uma toDo List em um vetor, para rodar em tempo de execução (até o momento). 
+- Tem que ser possível criar, atualizar e excluir tarefas da lista.
+- As tarefas tem:
+	- título;
+	- conteudo;
+	- status;
+- Tem que ser possível atualizar o status para PENDENTE, FAZENDO e FEITO.
+- Para acessar a toDo List, é necessário realizar login, caso não tenha será necessário criar o cadastro com:
+	- nome;
+	- email;
+	- senha;
+ - Estando logado, será possível realizar inserção, alteração, deleção e classificação do kanban.
+
