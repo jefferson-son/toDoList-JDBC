@@ -13,8 +13,7 @@ public class Task {
 	private String content;
 	private Status status;
 	
-	public Task(Integer id, String title, String content, Status status) {
-		this.id = id;
+	public Task(String title, String content, Status status) {
 		this.title = title;
 		this.content = content;
 		this.status = status;
@@ -48,6 +47,16 @@ public class Task {
 		this.status = status;
 	}
 
-	
+	@Override
+	public String toString() {
+		return 	"ID: "
+				+ id
+				+ " | TÍTULO: "
+				+ title
+				+ " | CONTEÚDO: "
+				+ content
+				+ " | STATUS: "
+				+ status;
+	}
 
 }
