@@ -2,6 +2,7 @@ package model.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -59,12 +60,14 @@ public class User {
 	public List<Task> getTasks() {  
 		return tasks;
 	}
+	
+	
 
 	public void viewTasks() {
 		
-		if(tasks.size() < 1) {
+		if(tasks.isEmpty()) {
 			System.out.println("==== TAREFAS ====");
-			System.out.println("** Sem tarefas cadastradas! **");
+			System.out.println("** Sem tarefas cadastradas **");
 			System.out.println();
 		}
 		else {
@@ -145,7 +148,10 @@ public class User {
 		for(int i = 0; i < getTasks().size(); i++) {
 			if(getTasks().get(i).getId() == taskUpdate) {
 				
+				System.out.println("\t Tarefa a ser atualizada: " + getTasks().get(i));
+				
 				Task tks = getTasks().get(i);
+				
 				System.out.println("[1] Atualizar titulo");
 				System.out.println("[2] Atualizar conteúdo");
 				System.out.println("[3] Atualizar status");
@@ -169,7 +175,7 @@ public class User {
 						break;
 					}
 					case 3: {
-						System.out.print("Digite o novo status: ");
+						System.out.print("Digite o novo status [TODO / DOING / DONE]: ");
 						String newStatus = sc.nextLine();
 						tks.setStatus(Status.valueOf(newStatus));
 						System.out.println();
@@ -206,6 +212,24 @@ public class User {
 		if(findTask == false) {
 			System.out.println("Tarefa não encontrada!");
 		}
+	}
+	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email);
 	}
 
 	@Override

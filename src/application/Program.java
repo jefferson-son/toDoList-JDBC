@@ -1,24 +1,24 @@
 package application;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 import model.entities.User;
 
 public class Program {
 
 	public static Scanner sc = new Scanner(System.in);
-	public static List<User> usersList = new ArrayList<>();
+	public static Set<User> usersList = new HashSet<>();
 
 	public static void main(String[] args) {
 
-		
 		index();
 	}
 
 	// Página Index da aplicação
 	public static void index() {
+
 		boolean run = true;
 
 		while (run == true) {
@@ -34,7 +34,12 @@ public class Program {
 			System.out.println();
 
 			switch (option) {
-				case 1: {
+			case 1: {
+			
+				User user = new User();
+				boolean userExists;
+				
+				do {
 					System.out.println("==== CADASTRO ====");
 					System.out.print("Digite seu nome: ");
 					String name = sc.nextLine();
@@ -43,50 +48,62 @@ public class Program {
 					System.out.print("Digite sua senha: ");
 					String password = sc.nextLine();
 	
-					User user = new User(name, email, password);
+					user = new User(name, email, password);
+					
+					userExists = usersList.contains(user);
+					if(userExists == true) {
+						System.out.println();
+						System.out.println("** Usuário com este email já existe! **");
+						System.out.println();
+					}
+					
+				} while(userExists == true);
+				
 					usersList.add(user);
 					System.out.println();
-					break;
-				}
-	
-				case 2: {
-					
-					boolean authenticated = false;
-					
-					while(authenticated == false) {
-						System.out.println("==== LOGIN ====");
-						System.out.print("Digite seu email: ");
-						String email = sc.nextLine();
-						System.out.print("Digite sua senha: ");
-						String password = sc.nextLine();
-		
-						for (User u : usersList) {
-							if (email.equals(u.getEmail()) && password.equals(u.getPassword())) {
-								authenticated = true;
-								System.out.println();
-								// HomePage após logado
-								logged(u);
-								break;
-							}
-						}
-						if (!authenticated) {
-							System.out.println("Usuário ou senha inválido!");
+				
+				break;
+			}
+
+			case 2: {
+
+				boolean authenticated = false;
+
+				while (authenticated == false) {
+					System.out.println("==== LOGIN ====");
+					System.out.print("Digite seu email: ");
+					String email = sc.nextLine();
+					System.out.print("Digite sua senha: ");
+					String password = sc.nextLine();
+
+					for (User u : usersList) {
+						if (email.equals(u.getEmail()) && password.equals(u.getPassword())) {
+							authenticated = true;
 							System.out.println();
+							// HomePage após logado
+							logged(u);
+							break;
 						}
-		
 					}
+					if (!authenticated) {
+						System.out.println("Usuário ou senha inválido!");
+						System.out.println();
+					}
+
 				}
-	
-				case 3: {
-					run = false;
-					break;
-				}
+			}
+
+			case 3: {
+				run = false;
+				break;
+			}
 
 			}
 
 		}
 
 		sc.close();
+
 	}
 
 	// Home page com usuário autenticado
@@ -112,29 +129,29 @@ public class Program {
 
 			// Listagem de todas as tarefas com opção de filtro pelo status
 			switch (option) {
-				case 1: {
-					user.viewTasks();
-					break;
-				}
-				case 2: {
-					user.addTask();
-					break;
-				}
-				case 3: {
-					user.updateTask();
-					break;
-				}
-				case 4: {
-					user.removeTask();
-					break;
-				}
-				case 5: {
-					home = false;
-					break;
-				}
+			case 1: {
+				user.viewTasks();
+				break;
+			}
+			case 2: {
+				user.addTask();
+				break;
+			}
+			case 3: {
+				user.updateTask();
+				break;
+			}
+			case 4: {
+				user.removeTask();
+				break;
+			}
+			case 5: {
+				home = false;
+				break;
+			}
 			}
 		}
-		
+
 		index();
 
 		sc.close();
