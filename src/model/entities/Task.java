@@ -1,28 +1,38 @@
 package model.entities;
 
-import java.util.Random;
+import java.io.Serializable;
+import java.util.Objects;
 
 import model.entities.enums.Status;
 
-public class Task {
+public class Task implements Serializable {
 
-	Random idGenerator = new Random();
-
-	private Integer id = idGenerator.nextInt(1000);
+	private static final long serialVersionUID = 1L;
+	private Integer id;
 	private String title;
 	private String content;
-	private Status status;
-	
-	public Task(String title, String content, Status status) {
+	private Integer status;
+	private Integer user_id;
+
+	public Task() {
+	}
+
+	public Task(Integer id, String title, String content, Status status, Integer user_id) {
+		this.id = id;
 		this.title = title;
 		this.content = content;
-		this.status = status;
+		setStatus(status);
+		this.user_id = user_id;
 	}
 
 	public Integer getId() {
 		return id;
 	}
-	
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -40,23 +50,40 @@ public class Task {
 	}
 
 	public Status getStatus() {
-		return status;
+		return Status.valueOf(status);
 	}
 
 	public void setStatus(Status status) {
-		this.status = status;
+		if (status != null) {
+			this.status = status.getCode();
+		}
+		
+	}
+
+	public Integer getUser_id() {
+		return user_id;
+	}
+
+	public void setUser_id(Integer user_id) {
+		this.user_id = user_id;
 	}
 
 	@Override
-	public String toString() {
-		return 	"ID: "
-				+ id
-				+ " | TÍTULO: "
-				+ title
-				+ " | CONTEÚDO: "
-				+ content
-				+ " | STATUS: "
-				+ status;
+	public int hashCode() {
+		return Objects.hash(content, id, status, title);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Task other = (Task) obj;
+		return Objects.equals(content, other.content) && Objects.equals(id, other.id) && status == other.status
+				&& Objects.equals(title, other.title);
 	}
 
 }
