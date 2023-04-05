@@ -3,15 +3,18 @@ package model.entities.dao;
 import java.util.List;
 
 import model.entities.Task;
+import model.entities.User;
 
 public interface TaskDao {
 
-	void insertTask(Task obj);
-	void updateTask(Task obj);
-	void deletTask(Task obj);
+	boolean insertTask(Task obj);
+	boolean updateTaskTitle(Task obj);
+	boolean updateTaskContent(Task obj);
+	boolean updateTaskStatus(Task obj);
+	boolean deletTask(Task obj);
 	Task findById(Task obj);
-	List<Task> findTodo(List<Task> obj);
-	List<Task> findDoing(List<Task> obj);
-	List<Task> findDone(List<Task> obj);
-	List<Task> findAll(List<Task> obj);
+	List<Task> findTodo(User obj);
+	List<Task> findDoing(User obj);
+	List<Task> findDone(User obj);
+	List<Task> findAll(User obj);
 }

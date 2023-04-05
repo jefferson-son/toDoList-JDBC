@@ -57,7 +57,7 @@ public class Task implements Serializable {
 		if (status != null) {
 			this.status = status.getCode();
 		}
-		
+
 	}
 
 	public Integer getUser_id() {
@@ -84,6 +84,18 @@ public class Task implements Serializable {
 		Task other = (Task) obj;
 		return Objects.equals(content, other.content) && Objects.equals(id, other.id) && status == other.status
 				&& Objects.equals(title, other.title);
+	}
+
+	@Override
+	public String toString() {
+		return "\t[CÓD: "
+				+ id
+				+ "] - Título: "
+				+ title
+				+ ", Conteúdo: "
+				+ content
+				+ ", Status: "
+				+ getStatus(); 
 	}
 
 }
